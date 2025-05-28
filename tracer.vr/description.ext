@@ -1,0 +1,18 @@
+class CfgFunctions {
+    class ria {  // Your mod/mission tag
+        class ai {
+            file = "functions\ai";  // Adjust path as needed
+            class spawnAIPatrol {
+                description = "Spawns an AI patrol group";
+            };
+        };
+        class cache {
+            file = "functions\cache";
+            class cacheGroup;
+            class uncacheGroup;
+            class cacheObjects;
+            class uncacheObjects;
+            class restoreInventory;
+        };
+    };
+};
