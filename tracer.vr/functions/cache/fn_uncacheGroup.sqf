@@ -42,42 +42,34 @@ private _leaderSet = false;
 {
     _x params [
         "_type", "_pos", "_dir", "_damage", "_loadout", "_rank", "_unitCombat",
-        "_skill", "_name", "_identity", "_isLeader", "_vehicle", "_vehRole", "_featureStates"
+        "_skill", "_name", "_identity", "_vehicle", "_vehRole", "_featureStates"
     ];
 
     private _unit = _group createUnit [_type, _pos, [], 0, "CAN_COLLIDE"];
     _unit setDir _dir;
     _unit setDamage _damage;
-    _unit setUnitLoadout _loadout;
+    //_unit setUnitLoadout _loadout;
     _unit setRank _rank;
     _unit setCombatMode _unitCombat;
     _unit setSkill _skill;
     _unit setName _name;
 
     // _identity insert [0, [_unit]];
-    // systemChat str _name;
-    // copyToClipboard str _identity;
+    // _unit setVariable ["ACE_Name", _name, true];
     // _identity remoteExecCall ["BIS_fnc_setIdentity", 2];
 
-    [_unit, _name, _identity] spawn {
-        params ["_unit", "_name", "_identity"];
+    [_unit, _name, _identity, _loadout] spawn {
+        params ["_unit", "_name", "_identity", "_loadout"];
         _identity insert [0, [_unit]];
-        waitUntil { !isNull _unit };
-        sleep 2;
-        hint str _identity;
+        sleep 0.05;
         _unit setVariable ["ACE_Name", _name, true];
         _identity call BIS_fnc_setIdentity;
+        _unit setUnitLoadout _loadout;
     };
 
     {
         _unit disableAI _x;
     } forEach _featureStates;
-
-
-    // if (_isLeader && !_leaderSet) then {
-    //     _group selectLeader _unit;
-    //     _leaderSet = true;
-    // };
 
     // Vehicle and role handling will be integrated later
 

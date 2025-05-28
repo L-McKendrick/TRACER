@@ -22,6 +22,8 @@ if (isNull _group) exitWith { [] };
 
 // Don't cache if players are in the group
 //if ((units _group) findIf { isPlayer _x } > -1) exitWith { [] };
+if (!local _group) exitWith { [] };
+
 
 private _cachedUnits = [];
 private _aiFeatures = ["AIMINGERROR", "ANIM", "AUTOCOMBAT", "AUTOTARGET", "CHECKVISIBLE", "COVER", "FSM", "LIGHTS", "MINEDETECTION",  "MOVE", "NVG", "PATH", "RADIOPROTOCOL", "SUPPRESSION", "TARGET", "WEAPONAIM", "FIREWEAPON"];
@@ -37,23 +39,22 @@ private _aiFeatures = ["AIMINGERROR", "ANIM", "AUTOCOMBAT", "AUTOTARGET", "CHECK
         };
     } forEach _aiFeatures;
 
-    _identity = [face _unit, speaker _unit, pitch _unit, nameSound _unit];
+    private _identity = [face _unit, speaker _unit, pitch _unit, nameSound _unit];
 
     private _unitData = [
         typeOf _x,
         getPosATL _x,
         getDir _x,
         damage _x,
-        getUnitLoadout _x,
+        +getUnitLoadout _x,
         rank _x,
         combatMode _x,
         skill _x,
-        name _unit,
-        _identity,
-        leader _group isEqualTo _x,  // Is leader
+        _x getVariable ["ACE_Name", name _unit],
+        +_identity,
         vehicle _x,                  // Placeholder for future vehicle handling
         assignedVehicleRole _x,
-        _featureStates               // [["AUTOCOMBAT", true], ...]
+        +_featureStates
     ];
 
     _cachedUnits pushBack _unitData;
