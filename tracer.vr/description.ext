@@ -8,11 +8,13 @@ class CfgFunctions {
         };
         class cache {
             file = "functions\cache";
+            class restoreInventory;
+            class cacheVehicle;
+            class uncacheVehicle;
             class cacheGroup;
             class uncacheGroup;
             class cacheObjects;
             class uncacheObjects;
-            class restoreInventory;
         };
     };
 };

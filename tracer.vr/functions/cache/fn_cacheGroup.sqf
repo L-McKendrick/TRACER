@@ -66,7 +66,7 @@ private _aiFeatures = ["AIMINGERROR", "ANIM", "AUTOCOMBAT", "AUTOTARGET", "CHECK
 // Cache group-level data
 private _cachedWaypoints = [];
 
-for "_i" from 0 to (count waypoints _group - 1) do {
+for "_i" from 1 to (count waypoints _group - 1) do {
     private _wp = (waypoints _group) select _i;
 
     _cachedWaypoints pushBack [
@@ -76,7 +76,9 @@ for "_i" from 0 to (count waypoints _group - 1) do {
         waypointCombatMode _wp,
         waypointSpeed _wp,
         waypointFormation _wp,
-        waypointCompletionRadius _wp
+        waypointCompletionRadius _wp,
+        waypointStatements _wp,
+        waypointScript _wp
     ];
 };
 
@@ -86,7 +88,8 @@ private _groupData = [
     formation _group,
     combatBehaviour _group,
     combatMode _group,
-    speedMode _group
+    speedMode _group,
+    currentWaypoint _group
 ];
 
 // Final structure: [units, waypoints, group settings]
